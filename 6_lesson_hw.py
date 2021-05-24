@@ -1,21 +1,40 @@
 plane = [
-    ['*'],   ['*'],   ['*'],
-    ['*'],   ['*'],   ['*'],
-    ['*'],   ['*'],   ['*'],
+    ['*',   '*',   '*'],
+    ['*',   '*',   '*'],
+    ['*',   '*',   '*'],
 ]
 
 
 def check_winner(p):
+    win = True
     for i in range(3):
         row = plane[i]
         start = ""
         for k in row:
             if k == "*":
+                win = False
                 break
             if not start:
                 start = k
             else:
                 if start == k:
+                    start = k
+                else:
+                    win = False
+                    break
+        if win:
+            return start
+
+    l = []
+    for i in range(3):
+        for k in range(3):
+            if p[i][k] == "*":
+                break
+            l.append(p[i][k])
+
+        if l.count("O") != 3 or l.count("X") != 3:
+            win = False
+
 
 
 def input_x_y():
@@ -29,10 +48,12 @@ def print_plane(plane):
         if i != 2:
             print('-' * 9)
 
-print_plane(plane)
+# print_plane(plane)
+#
+# player_1_x, player_1_y = input_x_y()
+#
+# plane[player_1_x][player_1_y] = 'X'
+#
+# print_plane(plane)
 
-player_1_x, player_1_y = input_x_y()
-
-plane[player_1_x][player_1_y] = 'X'
-
-print_plane(plane)
+print(check_winner(plane))
