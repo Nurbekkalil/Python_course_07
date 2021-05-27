@@ -1,29 +1,22 @@
 plane = [
-    ['*',   '*',   '*'],
-    ['*',   '*',   '*'],
-    ['*',   '*',   '*'],
+    ['X',   'X',   'O'], #0
+    ['X',   'X',   'O'], #1
+    ['O',   '0',   'X'], #2
 ]
 
 
 def check_winner(p):
-    win = True
-    for i in range(3):
-        row = plane[i]
-        start = ""
-        for k in row:
-            if k == "*":
-                win = False
-                break
-            if not start:
-                start = k
-            else:
-                if start == k:
-                    start = k
-                else:
-                    win = False
-                    break
-        if win:
-            return start
+    for i in range(0, 1, 2):
+        if i == 0:
+            if p[i][0] == p[i + 1] == p[i + 2]:
+                return p[i][0]
+            elif i == 1:
+                if p[1][i] == p[i][1] == p[i + 1][1]:
+                    return p[i][0]
+            elif i == 2:
+                if p[2][i] == p[2][1] == p[2][2]:
+                    return p[i][0]
+
 
     l = []
     for i in range(3):
@@ -32,8 +25,18 @@ def check_winner(p):
                 break
             l.append(p[i][k])
 
-        if l.count("O") != 3 or l.count("X") != 3:
-            win = False
+        if l.count("O") == 3 or l.count("X") == 3:
+            return l[0]
+
+        l.clear()
+
+    for i in range(0, 3, 2):
+        if i == 0:
+            if p[i][0] == p[i+1][1] == p[i+2][2]:
+                return p[i][0]
+            elif i == 2:
+                if p[0][i] == p[1][i - 1] == p[2][i - 2]:
+                    return p[i][0]
 
 
 
@@ -56,4 +59,5 @@ def print_plane(plane):
 #
 # print_plane(plane)
 
-print(check_winner(plane))
+# print(check_winner(plane))
+#
